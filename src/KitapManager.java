@@ -8,7 +8,7 @@ public class KitapManager extends Veritabani {
 
     public static void kitapMenu() throws InterruptedException {
         String tercih = "";
-        {// TODO Kullanıcı Çıkış Yapmadığı sürece menüde kalalım...
+        do {// TODO Kullanıcı Çıkış Yapmadığı sürece menüde kalalım...
             System.out.println(
                     "\n============ TECHNO STUDY BOOTCAMP ============\n" +
                             "================== KITAP MENU =================\n" +
@@ -21,25 +21,27 @@ public class KitapManager extends Veritabani {
                             "\t   7- Kitap Iade Et \t\n" +
                             "\t   A- ANAMENU\n" +
                             "\t   Q- CIKIS");
-
+            System.out.print("İşleminizi giriniz: ");
+            tercih = scan.nextLine();
             //TODO Kullanıcıdan alacağınız tercihe göre ilgili menü metodlarına yönlendirmeler yapın...
 
-            {
-                kitapListesiYazdir();
+            switch (tercih){
+                case "1":kitapListesiYazdir();break;
                 // Yazar Ismiyle Kitap Bulma
-                yazardanKitapBulma();
+                case "2":yazardanKitapBulma();break;
                 // Kitap Turu veya Yayin Tarihi Ile Kitap Bulma
-                turVeyaYayinTarihiIleKitapBulma();
+                case "3":turVeyaYayinTarihiIleKitapBulma();break;
                 // Bilgilerini Girerek Kitap Ekleme
-                kitapEkle();
-                isimIleKitapSilme();
-                kitapOduncAl();
-                kitapIadeEt();
-                Helper.anaMenu();
-                Helper.projeDurdur();
+                case "4":kitapEkle();break;
+                case "5":isimIleKitapSilme();break;
+                case "6":kitapOduncAl();break;
+                case "7":kitapIadeEt();break;
+                case "A":Helper.anaMenu();break;
+                case "Q":Helper.projeDurdur();break;
+                default:
                 System.out.println("Lutfen gecerli bir tercih giriniz");
             }
-        }
+        }while (tercih.equalsIgnoreCase("q"));
         Helper.projeDurdur();
 
     }

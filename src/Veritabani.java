@@ -32,5 +32,6 @@ public class Veritabani {
     }
 
     //TODO Ödünç Alınan Kitapları Tutmak için Bir Map tanımlayın...
+    static Map<String,String> oduncKitapMap = new HashMap<>();
 
 }
