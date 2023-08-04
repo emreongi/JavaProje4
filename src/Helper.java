@@ -26,6 +26,7 @@ public class Helper {
                 showUserMenu();
             } else {
                 System.out.println("Geçersiz kullanıcı adı veya şifre!");
+                projeDurdur();
             }
         } while (loggedInUserRole != null);
         //TODO loggedInUserRole null olup olmadığını kontrol ederek,
