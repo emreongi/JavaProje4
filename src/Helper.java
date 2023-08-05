@@ -11,11 +11,11 @@ public class Helper {
         // login olunmamış demektir...
 
         do {
+            Scanner oku = new Scanner(System.in);
             System.out.println("Kullanıcı adınızı giriniz: ");
-            String username = scan.nextLine();
-
+            String username = oku.nextLine();
             System.out.println("Şifrenizi giriniz: ");
-            String password = scan.nextLine();
+            String password = oku.nextLine();
             if (username.equals("admin") && password.equals("Admin123")) {
                 loggedInUserRole = UserRole.ADMIN;
                 System.out.println("Admin olarak giriş yaptınız!");
