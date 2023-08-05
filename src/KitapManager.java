@@ -65,16 +65,19 @@ public class KitapManager extends Veritabani {
 
     }
 
-    public static void kitapOduncAl() throws InterruptedException {
+    public static void kitapOduncAl() throws InterruptedException {     //çalıştı
         System.out.println("Odunc almak istediginiz kitabin ismini giriniz: ");
-        String kitapAd = scan.nextLine().toLowerCase();
+        String kitapAd = scan.nextLine();
 
-        if (kitaplarMap.containsKey(kitapAd))
-        {
-            oduncKitapMap.put(kitapAd, kitaplarMap.get(kitapAd));
-            kitaplarMap.remove(kitapAd);
-        }else
+        if (!kitaplarMap.containsKey(kitapAd)) {
             System.out.println("Böyle bir kitap mevcut değil.");
+        }
+
+        oduncKitapMap.put(kitapAd, kitaplarMap.get(kitapAd));
+        kitaplarMap.remove(kitapAd);
+
+        System.out.println(kitapAd + " kitabını ödünç aldınız.");
+
         kitapMenu();
         //TODO Kullanıcıdan alacağınız kitap ismiyle (Map te var olmalı)
         //TODO kitap ödünç alma metodunu tamamlayın...
@@ -83,14 +86,16 @@ public class KitapManager extends Veritabani {
     }
 
 
-    public static void kitapIadeEt() throws InterruptedException {
+    public static void kitapIadeEt() throws InterruptedException {  //çalıştı
         System.out.println("Iade etmek istediginiz kitabin ismini giriniz: ");
-        String kitapAd = scan.nextLine().toLowerCase();
+        String kitapAd = scan.nextLine();
 
         if (oduncKitapMap.containsKey(kitapAd))
         {
             kitaplarMap.put(kitapAd, oduncKitapMap.get(kitapAd));
             oduncKitapMap.remove(kitapAd);
+            System.out.println(kitapAd + " kitabını iade ettiniz.");
+
         }else
             System.out.println("Yanlış isim girdiniz.");
         kitapMenu();
@@ -103,7 +108,7 @@ public class KitapManager extends Veritabani {
 
     private static void isimIleKitapSilme() throws InterruptedException {//İPUCU METODU... Bu metodu değiştirmenize gerek yok.
         System.out.println("Silinecek kitabin ismini giriniz");
-        String silinecekKitap = scan.nextLine().toLowerCase();
+        String silinecekKitap = scan.nextLine();
 
         String silinecekValue = kitaplarMap.get(silinecekKitap);
         String sonucValue = kitaplarMap.remove(silinecekKitap);
@@ -124,7 +129,7 @@ public class KitapManager extends Veritabani {
         kitapMenu();
     }
 
-    private static void kitapEkle() throws InterruptedException {
+    private static void kitapEkle() throws InterruptedException {   //çalıştı
         //"A Tale of Two Cities", "Charles Dickens, Tarih, 1859" >> Kitap key,value su buna benzer şekilde...
 
         //TODO Kitap Adını, Yazar Adını, Kitap Türünü ve Yayınlanma Yılını Kullanıcıdan alarak,
@@ -143,23 +148,28 @@ public class KitapManager extends Veritabani {
         //String yayinTarihi = scan.nextLine();
 
         //TODO Ekleme işlemini tamamlayın...
+        System.out.println("Kitap Adını giriniz: ");
+        String kitapAdi = scan.nextLine();
 
+        System.out.println("Yazar Adını giriniz: ");
+        String yazarAdi = scan.nextLine();
 
+        System.out.println("Kitap Türünü giriniz: ");
+        String kitapTuru = scan.nextLine();
 
-            System.out.println("Kitap Adını , Yazar adını giriniz:  ");
-            String kitapBilgisi = scan.nextLine().toLowerCase();
-            System.out.println("Kitap türünü ve yayınlanma yılını giriniz:  (çıkmak için q basınız)");
-            String secim = scan.nextLine().toLowerCase();
+        System.out.println("Yayınlanma Yılını giriniz: ");
+        String yayinTarihi = scan.nextLine();
 
-            kitaplarMap.put(kitapBilgisi,secim);
+        kitaplarMap.put(kitapAdi, yazarAdi + "," + kitapTuru + "," + yayinTarihi);
+        System.out.println(kitapAdi + " kitabını eklediniz.");
 
-            kitapMenu();
+        kitapMenu();
     }
 
 
 
 
-    public static void turVeyaYayinTarihiIleKitapBulma() throws InterruptedException {
+    public static void turVeyaYayinTarihiIleKitapBulma() throws InterruptedException { // çalıştı
 
         Set<Map.Entry<String, String>> myEntrySet = kitaplarMap.entrySet();
 
@@ -167,36 +177,36 @@ public class KitapManager extends Veritabani {
 
         System.out.println("İstediğiniz kitabın türünü veya yayınlanma yılını yazın: ");
         System.out.println("(Tarih, Polisiye, Kurgu, Roman, Destan)");
-        String turVeyaYayinTarihi = scan.nextLine().toLowerCase();
+        Scanner oku = new Scanner(System.in);
+        String turVeyaYayinTarihi = oku.nextLine();
 
         // TODO Kitap türünü veya yayınlanma tarihini kullanarak kitap bulun...
 
         for (Map.Entry<String, String> entry : myEntrySet) {
-            String kitapAdi = entry.getKey();
             String kitapTuru = entry.getValue().split(",")[1];
             String yayinTarihi = entry.getValue().split(",")[2];
 
-            if (turVeyaYayinTarihi.equals(kitapTuru) && turVeyaYayinTarihi.equals(yayinTarihi)) {
+            if (kitapTuru.contains(turVeyaYayinTarihi)|| yayinTarihi.contains(turVeyaYayinTarihi)) {
                 System.out.println(
-                        "\n============ TECHNO STUDY CONFLUENCE ==========\n" +
-                                "================= KITAP LISTESI ===============\n" +
-
-                                        "\nKitap Adı    :   " + kitapAdi + ", " + kitapTuru +", "+ yayinTarihi+"");
+                        " " + entry.getKey() + ", "
+                                + entry.getValue().split(",")[0] + ", "
+                                + entry.getValue().split(",")[1] + ", "
+                                + entry.getValue().split(",")[2]
+                );
             }
         }
         kitapMenu();
-
     }
 
 
-    public static void yazardanKitapBulma() throws InterruptedException {
+    public static void yazardanKitapBulma() throws InterruptedException {   // çalıştı
 
         //TODO kitaplar.Map'in Value larını almak için  Set<Map.Entry<String, String>> cinsinden myEntrySet tanımlayın...
         Set<Map.Entry<String, String>> myEntrySet = kitaplarMap.entrySet();
 
         // TODO Kullanıcıdan yazar adını alın...
         System.out.println("İstediğiniz yazarın adını yazın: ");
-        String yazarAdi = scan.nextLine().toLowerCase();
+        String yazarAdi = scan.nextLine();
 
         // TODO Yazarın adını kullanarak kitap bulun...
         for (Map.Entry<String, String> entry : myEntrySet) {

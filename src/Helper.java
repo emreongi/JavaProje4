@@ -138,7 +138,7 @@ public class Helper {
                             "\t   2- Kitaplar Menu\n" +
                             "\t   A- ANAMENU\n" +
                             "\t   Q- CIKIS");
-            secim = scan.next();
+            secim = scan.next().toLowerCase();
             //TODO Kullanıcıdan alacağınız tercihlere göre ilgili menüye (metoda) yönlendirme yapınız...
 
             switch (secim) {
